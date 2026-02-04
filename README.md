@@ -1,6 +1,6 @@
 # Travel Memory
 
-# Deployment Architecture Diagram – Explanation
+## Deployment Architecture Diagram – Explanation
 
 The Travel Memory application is deployed using a scalable and highly available cloud architecture on Amazon Web Services (AWS). The application follows a three-tier architecture consisting of the presentation layer (frontend), application layer (backend), and data layer (database). The diagram illustrates how user requests flow securely through each component.
 
