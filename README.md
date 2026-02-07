@@ -123,47 +123,47 @@ Step 1: Launch EC2 Instance
 
 Step 2: Install Required Packages for backend server
 
-sudo bash
-sudo apt update -y
-sudo apt install nodejs -y
-sudo apt install npm -y
+    sudo bash
+    sudo apt update -y
+    sudo apt install nodejs -y
+    sudo apt install npm -y
 
-nodejs -v
-npm -v
+    nodejs -v
+    npm -v
 
 Step 3: Clone Backend Repository
 
-sudo bash
-cd ~
-git clone https://github.com/UnpredictablePrashant/TravelMemory.git
+    sudo bash
+    cd ~
+    git clone https://github.com/UnpredictablePrashant/TravelMemory.git
 
 Step 4: Create .env File
-cd TravelMemory/backend
-nano .env
+    
+    cd TravelMemory/backend
+    nano .env
 
 Add:
-PORT=3001
-MONGO_URI=mongodb+srv://santosharma:2TNVQJuGsJvRy0pT@travelmemorydb.0kzvz9q.mongodb.net/travelmemory
 
-Save and exit.
+    PORT=3001
+    MONGO_URI=mongodb+srv://santosharma:2TNVQJuGsJvRy0pT@travelmemorydb.0kzvz9q.mongodb.net/travelmemory
+
+    Save and exit.
 
 Step 5: Install Dependencies
 
-npm install
+    npm install
 
 Step 6: Start Backend Server
 
-node index.js
-
-Backend server runs:
-
-BACKEND_EC2_IP= 13.204.76.181
-
-Open url in browser http://<BACKEND_EC2_IP>:3001
+    node index.js
+    Backend server runs:
+    BACKEND_EC2_IP= 13.204.76.181
+    Open url in browser http://<BACKEND_EC2_IP>:3001
 
 Test connection and API
-url http://<BACKEND_EC2_IP>:3001/hello
-output:Hello World
+
+    url http://<BACKEND_EC2_IP>:3001/hello
+    output:Hello World
 
 # MongoDB Atlas Setup & Compass Connection
 Step 1: Log in
@@ -186,9 +186,7 @@ Step 4: Create Database User
 Step 5: Configure Network Access from anywhere
 
     Add IP:
-
     0.0.0.0/0
-
     For production, restrict to trusted IPs. (allow only spacific IP or network)
 
 Step 6: Connect MongoDB Compass
@@ -215,122 +213,122 @@ Step 1: Launch EC2 Instance
 
 Step 2: Install Required Packages for frontend server
 
-sudo bash
-sudo apt update -y
-sudo apt install nodejs -y
-sudo apt install npm -y
+    sudo bash
+    sudo apt update -y
+    sudo apt install nodejs -y
+    sudo apt install npm -y
 
-nodejs -v
-npm -v
+    nodejs -v
+    npm -v
 
 Step 3: Clone Frontend Repository
 
-sudo bash
-cd ~
-git clone https://github.com/UnpredictablePrashant/TravelMemory.git
+    sudo bash
+    cd ~
+    git clone https://github.com/UnpredictablePrashant/TravelMemory.git
 
 
 Step 4: Create .env File
-cd TravelMemory/frontend
-nano .env
+    
+    cd TravelMemory/frontend
+    nano .env
 
-Add:
-
-REACT_APP_BACKEND_URL=http://<BACKEND_EC2_IP>:3001
+    Add:
+    REACT_APP_BACKEND_URL=http://<BACKEND_EC2_IP>:3001
 
 Step 5: Install Dependencies
 
-npm install
+    npm install
 
 Step 6: Start Frontend Server
 
-npm start
+    npm start
+    Frontend server runs.
+    FRONTEND_EC2_IP= 13.201.89.94
 
-Frontend server runs.
+    open url in browser http://<FRONTEND_EC2_IP>:3000
 
-FRONTEND_EC2_IP= 13.201.89.94
-
-open url in browser http://<FRONTEND_EC2_IP>:3000
-
-Frontpage of Travel Memory application open
+    Frontpage of Travel Memory application open
 
 # To avoide Port no in url, reverse proxy server needs to install.
+
 For Reverse Proxy use Nginx server
 Frontend (Port 3000 → Port 80)
 
 # Connect via SSH to Frontend Server
-sudo bash
-sudo apt install nginx -y
-nano /etc/nginx/sites-available/default
+    sudo bash
+    sudo apt install nginx -y
+    nano /etc/nginx/sites-available/default
 
 # Modifiy default nginx file to reverse proxy:
 
-server {
-    listen 80;
-    #server_name _;
-
-    location / {
-        proxy_pass http://<FRONTEND_EC2_IP>:3000;
-        proxy_http_version 1.1;
-
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+    server {
+        listen 80;
+        #server_name _;
+    
+        location / {
+            proxy_pass http://<FRONTEND_EC2_IP>:3000;
+            proxy_http_version 1.1;
+    
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
     }
-}
-
+    
 Reload:
 
-nginx -t
-systemctl reload nginx
+    nginx -t
+    systemctl reload nginx
 
-Test:
-
-http://<FRONTEND_EC2_IP>
+    Test:
+    http://<FRONTEND_EC2_IP>
 
 # Backend Server reverse proxy
+
 To avoide Port no in url, reverse proxy server needs to install.
-For Reverse Proxy use Nginx server
-
-Backend (Port 3001 → Port 80)
-
-nano /etc/nginx/sites-available/default
+    
+    For Reverse Proxy use Nginx server
+    Backend (Port 3001 → Port 80)
+    nano /etc/nginx/sites-available/default
 
 Modifiy nginx default file:
 
-server {
-    listen 80;
-    # server_name _;
-
-    location / {
-        proxy_pass http://<BACKEND_EC2_IP>:3001;
-        proxy_http_version 1.1;
-
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+    server {
+        listen 80;
+        # server_name _;
+    
+        location / {
+            proxy_pass http://<BACKEND_EC2_IP>:3001;
+            proxy_http_version 1.1;
+    
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
     }
-}
 
 Reload:
 
-nginx -t
-systemctl reload nginx
+    nginx -t
+    systemctl reload nginx
 
 Test:
-Open in browser http://<BACKEND_EC2_IP>/hello
-output= Hello World
+    
+    Open in browser http://<BACKEND_EC2_IP>/hello
+    output= Hello World
 
 # Custom Domains interigation with Nginx
-Domains Name Used for Server:
+## Domains Name Used for Server:
 
     Frontend: graphtech.live
               www.graphtech.live
     Backend: api.graphtech.live
 
 # cloudflare.com to add DNS Records
+
 Type 	Name 	Value
 A 	     @ 	    13.201.89.94            # FRONTEND SERVER PUBLIC IP
 A 	    www 	13.201.89.94            # FRONTEND SERVER PUBLIC IP
@@ -338,48 +336,48 @@ A 	    api 	13.204.76.181           # BACKEND SERVER PUBLIC IP
 
 
 # Frontend Nginx Configuration
-server {
-    listen 80;
-    server_name graphtech.live www.graphtech.live;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+    server {
+        listen 80;
+        server_name graphtech.live www.graphtech.live;
+    
+        location / {
+            proxy_pass http://localhost:3000;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
     }
-}
 
 # Backend Nginx Configuration
-server {
-    listen 80;
-    server_name api.graphtech.live;
-
-    location / {
-        proxy_pass http://localhost:3001;
-        proxy_http_version 1.1;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+    server {
+        listen 80;
+        server_name api.graphtech.live;
+    
+        location / {
+            proxy_pass http://localhost:3001;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
     }
-}
-
+    
 Reload:
 
-nginx -t
-systemctl reload nginx
+    nginx -t
+    systemctl reload nginx
 
 # Configure Secure connection on both server
 
 ## Enable HTTPS with Certbot for Frontend
 
-sudo bash
-cd ~
-apt install certbot python3-certbot-nginx -y
-certbot --nginx -d graphtech.live -d www.graphtech.live
+    sudo bash
+    cd ~
+    apt install certbot python3-certbot-nginx -y
+    certbot --nginx -d graphtech.live -d www.graphtech.live
 
 Final HTTPS URLs
 
@@ -387,89 +385,91 @@ Final HTTPS URLs
     https://www.graphtech.live
 
 # Final frontend Nginx (Reverse Proxy ) Config after SSL
-server {
-    listen 80;
-    server_name graphtech.live www.graphtech.live;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+    server {
+        listen 80;
+        server_name graphtech.live www.graphtech.live;
+    
+        location / {
+            proxy_pass http://localhost:3000;
+            proxy_http_version 1.1;
+    
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    
+        listen 443 ssl;
+        ssl_certificate /etc/letsencrypt/live/graphtech.live/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/graphtech.live/privkey.pem;
+        include /etc/letsencrypt/options-ssl-nginx.conf;
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
     }
+    
+    server {
+        if ($host = www.graphtech.live) {
+            return 301 https://$host$request_uri;
+        }
+    
+        if ($host = graphtech.live) {
+            return 301 https://$host$request_uri;
+        }
 
-    listen 443 ssl;
-    ssl_certificate /etc/letsencrypt/live/graphtech.live/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/graphtech.live/privkey.pem;
-    include /etc/letsencrypt/options-ssl-nginx.conf;
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-}
-
-server {
-    if ($host = www.graphtech.live) {
-        return 301 https://$host$request_uri;
+        listen 80;
+        server_name graphtech.live www.graphtech.live;
+        return 404;
     }
-
-    if ($host = graphtech.live) {
-        return 301 https://$host$request_uri;
-    }
-
-    listen 80;
-    server_name graphtech.live www.graphtech.live;
-    return 404;
-}
-
+    
 
 
 ## Enable HTTPS with Certbot for Backend Server
 
-sudo certbot --nginx -d api.graphtech.live
+    sudo certbot --nginx -d api.graphtech.live
 
 # Final Backend Nginx (Reverse Proxy) Config after SSL
 
     https://api.graphtech.live
 
-server {
-    listen 80;
-    server_name api.graphtech.live;
-
-    location / {
-        proxy_pass http://localhost:3001;
-        proxy_http_version 1.1;
-
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+    server {
+        listen 80;
+        server_name api.graphtech.live;
+    
+        location / {
+            proxy_pass http://localhost:3001;
+            proxy_http_version 1.1;
+    
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    
+        listen 443 ssl;
+        ssl_certificate /etc/letsencrypt/live/api.graphtech.live/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/api.graphtech.live/privkey.pem;
+        include /etc/letsencrypt/options-ssl-nginx.conf;
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+    
     }
+    server {
+        if ($host = api.graphtech.live) {
+            return 301 https://$host$request_uri;
+        }
+    
 
-    listen 443 ssl;
-    ssl_certificate /etc/letsencrypt/live/api.graphtech.live/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/api.graphtech.live/privkey.pem;
-    include /etc/letsencrypt/options-ssl-nginx.conf;
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-
-}
-server {
-    if ($host = api.graphtech.live) {
-        return 301 https://$host$request_uri;
+        listen 80;
+        server_name api.graphtech.live;
+        return 404;
+    
     }
-
-
-    listen 80;
-    server_name api.graphtech.live;
-    return 404;
-
-}
 
 # Failover and Load balancer Configuration
-Create AMI image of Frontend and Backend Servers
+    
+    Create AMI image of Frontend and Backend Servers
       Frontend : front-ami
       Backend  : back-ami
-Create Template
+
+## Create Template
     Launch Template
     Frontend 
       Name: front-ami-tmp
@@ -505,12 +505,13 @@ Step 3: Create ALB
     Zone: More then one zone select
 
 Step 4: Attach both Target Group to ALB.
+   
     1 : Target group (TG-frontend) with ALB (travel-memory-alb)
     2 : Target group (TG-backend) with ALB (travel-memory-alb)
 
 Step 4: Test Load Balancer
 
-http://tm-alb-32463030.ap-south-1.elb.amazonaws.com
+    http://tm-alb-32463030.ap-south-1.elb.amazonaws.com
 
 AWS Certificate Manager (ACM)
 
@@ -521,9 +522,10 @@ AWS Certificate Manager (ACM)
 
 
 # cloudflare.com to add DNS Records
-Type 	     CNAME         
-Name  : _8225cd4c2e13acd764f43cb0c92d493b.alb.
-Value :	_6ebe4648fd9d4bdcd105665671857019.jkddzztszm.acm-validations.aws              
+
+    Type 	     CNAME         
+    Name  : _8225cd4c2e13acd764f43cb0c92d493b.alb.
+    Value :	_6ebe4648fd9d4bdcd105665671857019.jkddzztszm.acm-validations.aws              
 
 
 Step 5: Auto Scaling Group (ASG)
