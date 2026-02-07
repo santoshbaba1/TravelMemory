@@ -120,6 +120,7 @@ Step 1: Launch EC2 Instance
     Open ports: (22,80,3000,3001)
     Select security group (tv-sg) for instance.
     Connect via SSH.
+<img width="1005" height="261" alt="sg inbound" src="https://github.com/user-attachments/assets/cfbf1d75-c346-4511-9299-cc80815b8f22" />
 
 Step 2: Install Required Packages for backend server
 
@@ -138,6 +139,7 @@ Step 3: Clone Backend Repository
     sudo bash
     cd ~
     git clone https://github.com/UnpredictablePrashant/TravelMemory.git
+<img width="1002" height="215" alt="clone" src="https://github.com/user-attachments/assets/7c31c6cd-4ae6-4dfe-abf1-a528e179f8ad" />
 
 Step 4: Create .env File
     
@@ -155,6 +157,8 @@ Add:
 Step 5: Install Dependencies
 
     npm install
+<img width="997" height="228" alt="nodej" src="https://github.com/user-attachments/assets/5f573d9d-7891-4af2-b25a-9bef8e7b0411" />
+<img width="1348" height="259" alt="nodejs check" src="https://github.com/user-attachments/assets/55c01eee-e15d-4d1f-bfb8-1a2dc2af80bf" />
 
 Step 6: Start Backend Server
 
@@ -168,6 +172,7 @@ connection and API
 
     url http://<BACKEND_EC2_IP>:3001/hello
     output:Hello World
+<img width="1012" height="208" alt="hello" src="https://github.com/user-attachments/assets/c7c09271-3205-4268-a659-ad5878d5dd93" />
 
 # MongoDB Atlas Setup & Compass Connection
 Step 1: Log in
@@ -208,6 +213,7 @@ Step 7: Connect Using Compass
     Open MongoDB Compass
     Paste connection string with username and password
     Connect
+<img width="1361" height="717" alt="mongo comp" src="https://github.com/user-attachments/assets/162d5cf8-e7f9-43a8-a033-abc9020ba6b1" />
 
 # Frontend Deployment on AWS EC2
 Step 1: Launch EC2 Instance
@@ -234,6 +240,7 @@ Step 3: Clone Frontend Repository
     cd ~
     git clone https://github.com/UnpredictablePrashant/TravelMemory.git
 
+<img width="1002" height="215" alt="clone" src="https://github.com/user-attachments/assets/92307d2b-bba3-4e1e-991d-926420c93956" />
 
 Step 4: Create .env File
     
@@ -257,6 +264,7 @@ Step 6: Start Frontend Server
     open url in browser http://<FRONTEND_EC2_IP>:3000
 
     Frontpage of Travel Memory application open
+<img width="666" height="403" alt="fe start" src="https://github.com/user-attachments/assets/0baee341-22bf-477f-aceb-e8f4c2f51fed" />
 
 # To avoide Port no in url, reverse proxy server needs to install.
 
@@ -387,11 +395,13 @@ Reload:
     cd ~
     apt install certbot python3-certbot-nginx -y
     certbot --nginx -d graphtech.live -d www.graphtech.live
+<img width="502" height="411" alt="cert r" src="https://github.com/user-attachments/assets/4036da29-fe2b-4e9a-b087-70ca21f087c4" />
 
 Final HTTPS URLs
 
     https://graphtech.live
     https://www.graphtech.live
+<img width="1002" height="333" alt="certi f" src="https://github.com/user-attachments/assets/e752e87d-52b3-4269-9ccf-7295ba261f65" />
 
 # Final frontend Nginx (Reverse Proxy ) Config after SSL
     server {
