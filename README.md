@@ -17,7 +17,7 @@ The Travel Memory application is deployed using a scalable and highly available 
 ## 2. Cloudflare DNS and Security Layer
     Cloudflare acts as the DNS provider and security gateway for the application.
       Responsibilities:
-        Resolves domain names (yourdomain.com and api.yourdomain.com)
+        Resolves domain names (graphtech.live and api.graphtech.live)
         Provides SSL/TLS encryption
         Protects the application from DDoS attacks
         Improves performance through caching and CDN
