@@ -74,7 +74,6 @@ The Travel Memory application is deployed using a scalable and highly available 
     MongoDB Atlas is used as a managed NoSQL database service.
       Configuration:
          Protocol: TCP
-         Port: 27017
       Responsibilities:
          Store application data such as user information and travel memories
          Provide secure and scalable data storage
