@@ -547,9 +547,10 @@ AWS Certificate Manager (ACM)
 # cloudflare.com to add DNS Records
 
     Type 	     CNAME         
-    Name  : _8225cd4c2e13acd764f43cb0c92d493b.alb.
-    Value :	_6ebe4648fd9d4bdcd105665671857019.jkddzztszm.acm-validations.aws              
+    Name  : _d79f9ce292473d7af6f2a4d0a8080d01
+    Value :	_bc77613b14191f7d68eaa665d8ff9af1.jkddzztszm.acm-validations.aws              
 
+<img width="1051" height="574" alt="cloudfair records setting" src="https://github.com/user-attachments/assets/addc7bff-732d-48a1-ae73-3b0a4f5d0849" />
 
 Step 5: Auto Scaling Group (ASG)
 
